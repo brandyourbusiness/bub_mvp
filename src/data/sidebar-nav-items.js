@@ -35,6 +35,11 @@ export default function() {
       title: "Errors",
       htmlBefore: '<i class="material-icons">error</i>',
       to: "/errors",
+    },
+    {
+      title: "Register",
+      htmlBefore: '<i class="material-icons">error</i>',
+      to: "/register",
     }
   ];
 }

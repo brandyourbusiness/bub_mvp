@@ -12,6 +12,7 @@ import Errors from "./views/Errors";
 import ComponentsOverview from "./views/ComponentsOverview";
 import Tables from "./views/Tables";
 import BlogPosts from "./views/BlogPosts";
+import FormContainer from "./views/FormContainer";
 
 export default [
   {
@@ -39,6 +40,11 @@ export default [
     path: "/errors",
     layout: DefaultLayout,
     component: Errors
+  },
+  {
+    path: "/register",
+    layout: DefaultLayout,
+    component: FormContainer
   },
   {
     path: "/components-overview",
