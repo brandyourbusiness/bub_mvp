@@ -1,0 +1,63 @@
+[
+	{
+		"name": "Basic",
+		"type": "toggle",
+		"grouped": true,
+		"open": true,
+		"values": [
+	    {
+	      "label": "Name",
+	      "type": "input",
+	      "division": 6
+	    },
+	    {
+	      "label": "Email",
+	      "type": "email",
+	      "division": 6,
+	      "required": true
+	    },
+	    {
+	      "label": "Password",
+	      "type": "password",
+	      "division": 6
+	    },
+	    {
+	      "label": "Confirm Password",
+	      "type": "password",
+	      "division": 6
+	    },
+	    {
+	      "label": "Address",
+	      "type": "input_group"
+	    }
+		]
+	},
+	{
+		"name": "KYC",
+		"type": "toggle",
+		"grouped": true,
+		"open": false,
+		"values": [
+	    {
+	      "label": "Pan number",
+	      "tag": "input",
+	      "type": "number",
+	      "digits": 10,
+	      "division": 6,
+	      "options":{
+	        "placeholder": "PAN Number"
+	      }
+	    },
+	    {
+	      "label": "GST number",
+	      "tag": "input",
+	      "type": "number",
+	      "digits": 10,
+	      "division": 6,
+	      "options":{
+	        "placeholder": "PAN Number"
+	      }
+	    }
+		]
+	}
+]

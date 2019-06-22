@@ -1,0 +1,20 @@
+[
+	{
+	  "label": "Email",
+	  "tag": "input",
+	  "type": "email",
+	  "division": 6,
+	  "options":{
+	    "placeholder": "Email"
+	  }
+	},
+	{
+	  "label": "Email",
+	  "tag": "input",
+	  "type": "email",
+	  "division": 6,
+	  "options":{
+	    "placeholder": "Email"
+	  }
+	}
+]
