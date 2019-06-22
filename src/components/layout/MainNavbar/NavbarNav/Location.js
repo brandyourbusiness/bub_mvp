@@ -45,6 +45,7 @@ export default class Location extends React.Component {
 						formatted_address,
 						locality: address_components.find(add => add.types.find(type => type === 'locality')).short_name
 					})
+				})
 			}, err => {
 				alert("Please allow access to your location.")
 			})
