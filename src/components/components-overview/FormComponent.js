@@ -1,4 +1,4 @@
-import React from "react";
+import React,{Component} from "react";
 import {
   ListGroup,
   ListGroupItem,
@@ -13,110 +13,147 @@ import {
 } from "shards-react";
 
 const elements = [
-  [
-    {
-      label: "Email",
-      tag: "input",
-      type: "email",
-      division: 6,
-      options:{
-        placeholder: "Email"
-      }
-    },
-    {
-      label: "Password",
-      tag: "input",
-      type: "password",
-      division: 6,
-      options:{
-        placeholder: "Password"
-      }
-    }
-  ],
   {
-    label: "Address",
-    tag: "input",
-    options: {
-      placeholder: "1234 Main St"
-    }
+    label: "Email",
+    type: "email",
+    division: 6,
+  },
+  {
+    label: "Password",
+    type: "password",
+    division: 6,
+  },
+  {
+    label: "showKYC",
+    group: "showkyc",
+    type: "toggle",
+    division: 2,
+    values: [
+      {
+        label: "Email",
+        type: "email",
+        division: 6,
+      },
+      {
+        label: "Password",
+        type: "password",
+        division: 6,
+      }  
+    ] 
   }
 ]
 
-const FormComponent = () => (
-  <ListGroup flush>
-    <ListGroupItem className="p-3">
-      <Row>
-        <Col>
-          <Form>
-            <Row form className="form-group">
-              {elements.map((element, i) => (
-                Array.isArray(element) ?
-                  (<Row form className="form-group">
-                      {element.map((item, index) => (
-                        <Col md="6" key={i}>
-                          <label htmlFor={`fe${item.label}`}>{item.label}</label>
-                          <FormInput
-                            id={`fe${item.label}`}
-                            type={item.type}
-                            placeholder={item.placeholder || item.label}
-                          />
-                        </Col>
-                      ))}
-                    </Row>
-                  ) :
-                (<Col md="6" key={i}>
-                  <label htmlFor={`fe${element.label}`}>{element.label}</label>
-                  <FormInput
-                    id={`fe${element.label}`}
-                    type={element.type}
-                    placeholder={element.placeholder || element.label}
-                  />
-                </Col>)
-              ))}
-            </Row>
+class FormComponent extends Component {
 
-            <FormGroup>
-              <label htmlFor="feInputAddress">Address</label>
-              <FormInput id="feInputAddress" placeholder="1234 Main St" />
-            </FormGroup>
+  constructor(props){
+    super(props);
+    this.state= {}
+  }
 
-            <FormGroup>
-              <label htmlFor="feInputAddress2">Address 2</label>
-              <FormInput
-                id="feInputAddress2"
-                placeholder="Apartment, Studio or Floor"
-              />
-            </FormGroup>
+  toggleState = (item) => {
+    this.setState(prevState => ({
+      [item] : !prevState[item]
+    }),
+    ()=>{
+      // console.log(this.state[item.group])
+    })    
+  }
 
-            <Row form>
-              <Col md="6" className="form-group">
-                <label htmlFor="feInputCity">City</label>
-                <FormInput id="feInputCity" />
-              </Col>
-              <Col md="4" className="form-group">
-                <label htmlFor="feInputState">State</label>
-                <FormSelect id="feInputState">
-                  <option>Choose...</option>
-                  <option>...</option>
-                </FormSelect>
-              </Col>
-              <Col md="2" className="form-group">
-                <label htmlFor="feInputZip">Zip</label>
-                <FormInput id="feInputZip" />
-              </Col>
-            </Row>
-            <FormGroup>
-              <FormCheckbox>
-                {/* eslint-disable-next-line */}I agree with your{" "}
-                <a href="#">Privacy Policy</a>.
-              </FormCheckbox>
-            </FormGroup>
-            <Button type="submit">Create New Account</Button>
-          </Form>
-        </Col>
-      </Row>
-    </ListGroupItem>
-  </ListGroup>
-);
+  handleChange = (key, value) => {
+    this.setState(prevState => ({
+      [key] : value
+    }),
+    ()=>{
+        console.log(this.state)
+    })    
+  }
+
+  generateElement = (element) => {
+    switch(element.type){
+      case "email":
+      case "password":
+      case "input":
+        return (
+          <FormInput
+            id={`fe${element.label}`}
+            type={element.type}
+            placeholder={element.label}
+          />
+        );
+      case "select":
+        return (
+          <FormSelect id={`fe${element.label}`}
+          >
+            <option>Choose...</option>
+            <option>...</option>
+          </FormSelect>
+        );
+      case "toggle":
+        return(
+          <FormCheckbox 
+            toggle={true}
+            small={true}>
+          </FormCheckbox>
+        )
+      default :
+        return(
+          <FormInput
+            id={`fe${element.label}`}
+            placeholder={element.placeholder || element.label}
+          />
+        )      
+    }
+  }
+
+  render (){
+    return (
+      <ListGroup flush>
+        <ListGroupItem className="p-3">
+          <Row>
+            <Col>
+              <Form>
+                <Row>
+                  {
+                    elements.map((item, index) => (
+                      !item.group ? 
+                        (<Col md={item.division || 12} key={index}>
+                            <label htmlFor={`fe${item.label}`}>{item.label}</label>
+                              <span onChange={(e) => this.handleChange(item.label, e.target.value)}>{this.generateElement(item)}</span>
+                          </Col>) : 
+                        (<React.Fragment>
+                          <Col md={item.division || 12} key={index}>
+                            <label >
+                              {item.label}
+                            </label>
+                            <span onChange={(e) => this.toggleState(item.label)}>
+                              {this.generateElement(item)}
+                            </span>
+                          </Col>
+                          {this.state[item.label] && item.values.map((value, ind) => (
+                            <Col md={value.division || 12} key={ind}>
+                              <label htmlFor={`fe${value.label}`}>{value.label}</label>
+                                {this.generateElement(value)}
+                            </Col>
+                          ))}
+                          </React.Fragment>
+                        )
+                    ))
+                  }
+                </Row>
+                <FormGroup>
+                  <FormCheckbox>
+                    {/* eslint-disable-next-line */}I agree with your{" "}
+                    <a href="#">Privacy Policy</a>.
+                  </FormCheckbox>
+                </FormGroup>
+                <Button type="submit">Create New Account</Button>
+              </Form>
+            </Col>
+          </Row>
+        </ListGroupItem>
+      </ListGroup>
+    )
+  }
+}
 
 export default FormComponent;
