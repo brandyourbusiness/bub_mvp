@@ -6,8 +6,9 @@ import MainNavbar from "../components/layout/MainNavbar/MainNavbar";
 import MainSidebar from "../components/layout/MainSidebar/MainSidebar";
 import MainFooter from "../components/layout/MainFooter";
 
-const DefaultLayout = ({ children, noNavbar, noFooter }) => (
+const DefaultLayout = ({ children, noNavbar, noFooter, client }) => (
   <Container fluid>
+  	{console.log("DefaultLayout", client)}
     <Row>
       <MainSidebar />
       <Col

@@ -38,6 +38,7 @@ const withTracker = (WrappedComponent, options = {}) => {
     }
 
     render() {
+    	console.log("---withtracker", this.props)
       return <WrappedComponent {...this.props} />;
     }
   };

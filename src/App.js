@@ -7,25 +7,47 @@ import withTracker from "./withTracker";
 import "bootstrap/dist/css/bootstrap.min.css";
 import "./shards-dashboard/styles/shards-dashboards.1.1.0.min.css";
 
-export default () => (
+import { ApolloProvider, withApollo } from 'react-apollo';
+import { client } from './apollo/client';
+
+const AppRoutes = () => (
   <Router basename={process.env.REACT_APP_BASENAME || ""}>
-    <div>
-      {routes.map((route, index) => {
-        return (
-          <Route
-            key={index}
-            path={route.path}
-            exact={route.exact}
-            component={withTracker(props => {
-              return (
-                <route.layout {...props}>
-                  <route.component {...props} />
-                </route.layout>
-              );
-            })}
-          />
-        );
-      })}
-    </div>
-  </Router>
+	  <div>
+	    {
+	    	routes.map((route, index) => {
+	      return (
+	        <Route
+	          key={index}
+	          path={route.path}
+	          exact={route.exact}
+	          component={
+	          	withApollo(
+	          		withTracker(props => {
+			          	console.log("props", props);
+			            return (
+			              <route.layout {...props}>
+			                <route.component {...props}/>
+			              </route.layout>
+			            );
+		        	  })
+		        	)
+		        }
+	        />
+	      );
+	    })}
+	  </div>
+	</Router>
 );
+
+const AppRoute = withApollo(AppRoutes);
+
+class App extends React.Component {
+	render = () => (
+		<ApolloProvider client={client}>
+			{console.log("CLINET", client)}
+			<AppRoute />
+		</ApolloProvider>
+	);
+}
+
+export default App;
