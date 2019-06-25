@@ -9,61 +9,85 @@ import UsersByDevice from "./../components/blog/UsersByDevice";
 import NewDraft from "./../components/blog/NewDraft";
 import Discussions from "./../components/blog/Discussions";
 import TopReferrals from "./../components/common/TopReferrals";
+import { GET_ALL_USERS } from "../apollo/queries";
+import { UPDATE_USER } from "../apollo/mutations";
 
-const BlogOverview = ({ smallStats }) => (
-  <Container fluid className="main-content-container px-4">
-    {/* Page Header */}
-    <Row noGutters className="page-header py-4">
-      <PageTitle title="Blog Overview" subtitle="Dashboard" className="text-sm-left mb-3" />
-    </Row>
+class BlogOverview extends React.Component {
+	handleClick = () => {
+		// this.props.client.query({
+		// 	query: GET_ALL_USERS
+		// }).then(res => {
+		// 	console.log("RES", res)
+		// })
+		// this.props.client.mutate({
+		// 	mutation: UPDATE_USER,
+		// 	variables: {
+		// 		id: "5d0faf65d0242d0f84306014",
+		// 		input: {
+		// 			email: "hema@gmail.com"
+		// 		}
+		// 	}
+		// }).then(res => {
+		// 	console.log("LDSKJFLJDKF", res)
+		// })
+	}
 
-    {/* Small Stats Blocks */}
-    <Row>
-      {smallStats.map((stats, idx) => (
-        <Col className="col-lg mb-4" key={idx} {...stats.attrs}>
-          <SmallStats
-            id={`small-stats-${idx}`}
-            variation="1"
-            chartData={stats.datasets}
-            chartLabels={stats.chartLabels}
-            label={stats.label}
-            value={stats.value}
-            percentage={stats.percentage}
-            increase={stats.increase}
-            decrease={stats.decrease}
-          />
-        </Col>
-      ))}
-    </Row>
+	render = () => (
+	  <Container fluid className="main-content-container px-4">
+	    {/* Page Header */}
+	    {/* <div onClick={this.handleClick}> COMING HERE </div> */}
+	    <Row noGutters className="page-header py-4">
+	      <PageTitle title="Blog Overview" subtitle="Dashboard" className="text-sm-left mb-3" />
+	    </Row>
 
-    <Row>
-      {/* Users Overview */}
-      <Col lg="8" md="12" sm="12" className="mb-4">
-        <UsersOverview />
-      </Col>
+	    {/* Small Stats Blocks */}
+	    <Row>
+	      {this.props.smallStats.map((stats, idx) => (
+	        <Col className="col-lg mb-4" key={idx} {...stats.attrs}>
+	          <SmallStats
+	            id={`small-stats-${idx}`}
+	            variation="1"
+	            chartData={stats.datasets}
+	            chartLabels={stats.chartLabels}
+	            label={stats.label}
+	            value={stats.value}
+	            percentage={stats.percentage}
+	            increase={stats.increase}
+	            decrease={stats.decrease}
+	          />
+	        </Col>
+	      ))}
+	    </Row>
 
-      {/* Users by Device */}
-      <Col lg="4" md="6" sm="12" className="mb-4">
-        <UsersByDevice />
-      </Col>
+	    <Row>
+	      {/* Users Overview */}
+	      <Col lg="8" md="12" sm="12" className="mb-4">
+	        <UsersOverview />
+	      </Col>
 
-      {/* New Draft */}
-      <Col lg="4" md="6" sm="12" className="mb-4">
-        <NewDraft />
-      </Col>
+	      {/* Users by Device */}
+	      <Col lg="4" md="6" sm="12" className="mb-4">
+	        <UsersByDevice />
+	      </Col>
 
-      {/* Discussions */}
-      <Col lg="5" md="12" sm="12" className="mb-4">
-        <Discussions />
-      </Col>
+	      {/* New Draft */}
+	      <Col lg="4" md="6" sm="12" className="mb-4">
+	        <NewDraft />
+	      </Col>
 
-      {/* Top Referrals */}
-      <Col lg="3" md="12" sm="12" className="mb-4">
-        <TopReferrals />
-      </Col>
-    </Row>
-  </Container>
-);
+	      {/* Discussions */}
+	      <Col lg="5" md="12" sm="12" className="mb-4">
+	        <Discussions />
+	      </Col>
+
+	      {/* Top Referrals */}
+	      <Col lg="3" md="12" sm="12" className="mb-4">
+	        <TopReferrals />
+	      </Col>
+	    </Row>
+	  </Container>
+	);
+}
 
 BlogOverview.propTypes = {
   /**

@@ -9,6 +9,7 @@ class UsersOverview extends React.Component {
   constructor(props) {
     super(props);
 
+  	console.log("Users Overview", props)
     this.canvasRef = React.createRef();
   }
 
