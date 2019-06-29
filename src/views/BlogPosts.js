@@ -129,9 +129,9 @@ class BlogPosts extends React.Component {
         {
           backgroundImage: require("../images/content-management/7.jpeg"),
           author: "Alene Trenton",
-          authorUrl: "#",
+          authorUrl: require("../images/avatars/1.jpg"),
           category: "News",
-          categoryUrl: "#",
+          categoryUrl: require("../images/avatars/1.jpg"),
           title: "Extremity so attending objection as engrossed",
           body:
             "Pursuit chamber as elderly amongst on. Distant however warrant farther to of. My justice wishing prudent waiting in be...",

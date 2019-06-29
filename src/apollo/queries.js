@@ -11,3 +11,13 @@ export const GET_ALL_USERS = gql`
 	}
 	${User}
 `;
+
+export const RUN_JOBS = gql`
+	query runJobs($jobName: [String!], $jobOptions: JSON) {
+	  runJobs(job_name: $jobName, job_options: $jobOptions) {
+	    job_name
+	    job_options
+	    job_results
+	  }
+	}
+`;

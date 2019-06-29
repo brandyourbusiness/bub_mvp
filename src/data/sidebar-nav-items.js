@@ -1,5 +1,11 @@
 export default function() {
   return [
+  	{
+  		title: "Home",
+  		to: "/home",
+  		htmlBefore: '<i class="material-icons">home</i>',
+  		htmlAfter: ""
+  	},
     {
       title: "Blog Dashboard",
       to: "/blog-overview",

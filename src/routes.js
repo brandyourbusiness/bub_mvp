@@ -13,13 +13,19 @@ import ComponentsOverview from "./views/ComponentsOverview";
 import Tables from "./views/Tables";
 import BlogPosts from "./views/BlogPosts";
 import FormContainer from "./views/FormContainer";
+import HomeComponent from "./views/HomeComponent";
 
 export default [
   {
     path: "/",
     exact: true,
     layout: DefaultLayout,
-    component: () => <Redirect to="/blog-overview" />
+    component: () => <Redirect to="/home" />
+  },
+  {
+  	path: "/home",
+  	layout: DefaultLayout,
+  	component: HomeComponent
   },
   {
     path: "/blog-overview",
