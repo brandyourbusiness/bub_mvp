@@ -13,7 +13,6 @@ import {
 import { Loading } from 'components';
 import { googleSignin, googleSignout } from "firebase/config"
 import { IS_AUTHENTICATED } from "apollo/queries";
-import { FontAwesomeIcon } from '@fortawesome/react-fontawesome'
 
 class UserActions extends React.Component {
 	constructor(props) {

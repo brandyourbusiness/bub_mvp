@@ -18,7 +18,6 @@ if (!firebase.apps.length) {
 }
 
 const auth = firebase.auth();
-const storage = firebase.storage();
 
 export const initFirebaseUser = (client) => {
 	auth.onAuthStateChanged(user => {
