@@ -15,6 +15,8 @@ export const User = gql`
 		pan_number
 		admin
 		verified
+		image_url
+		google_id
 		created_at
 		updated_at
 		__typename

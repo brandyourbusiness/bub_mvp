@@ -28,7 +28,7 @@ class HomeComponent extends Component {
 		super(props);
 		this.state = {
 			open: false,
-			consumer: '',
+			consumer: "",
 			authUser: {
 				id: "123",
 				number: "8078xxxxxx"
@@ -46,41 +46,43 @@ class HomeComponent extends Component {
 	};
 
 	generateCoupon = () => {
-		this.props.client.mutate({
-			mutation: CREATE_COUPON_CODE,
-			variables: {
-				input: {
-					referrer: this.state.authUser.number,
-					referrer_id: this.state.authUser.id,
-					brand_id: this.state.selectedBrand.id || '1',
-					consumer: this.state.consumer,
-					expiry_date: new Date()
-				}
-			}
-		})
-		.then(({data: { createCoupon }}) => {
-			let bodyTemplate = `Congratulations! Get BUB discount at ${this.state.brandTitle} by using code ${createCoupon.coupon_code}. This coupon is applicable only when you use BUB app during the payment time.`
-			this.props.client.query({
-				query: RUN_JOBS,
+		this.props.client
+			.mutate({
+				mutation: CREATE_COUPON_CODE,
 				variables: {
-					jobName: ["send_sms"],
-					jobOptions: {
-						body: bodyTemplate,
-						to: "+91" + this.state.consumer
+					input: {
+						referrer: this.state.authUser.number,
+						referrer_id: this.state.authUser.id,
+						brand_id: this.state.selectedBrand.id || "1",
+						consumer: this.state.consumer,
+						expiry_date: new Date()
 					}
 				}
 			})
-			.then((data) => {
-				console.log("DATA", data)
-				this.setState({
-					valid: false,
-					open: !this.state.open
-				})
-			})
-			.catch(e => {
-				console.log(e)
-			})
-		})
+			.then(({ data: { createCoupon } }) => {
+				let bodyTemplate = `Congratulations! Get BUB discount at ${this.state.brandTitle} by using code ${createCoupon.coupon_code}. This coupon is applicable only when you use BUB app during the payment time.`;
+				this.props.client
+					.query({
+						query: RUN_JOBS,
+						variables: {
+							jobName: ["send_sms"],
+							jobOptions: {
+								body: bodyTemplate,
+								to: "+91" + this.state.consumer
+							}
+						}
+					})
+					.then(data => {
+						console.log("DATA", data);
+						this.setState({
+							valid: false,
+							open: !this.state.open
+						});
+					})
+					.catch(e => {
+						console.log(e);
+					});
+			});
 	};
 
 	handleModalInputChange = e => {
@@ -99,9 +101,11 @@ class HomeComponent extends Component {
 		<>
 			<Modal
 				size="md"
-				centered="true"
+				backdrop={true}
+				centered={true}
 				open={this.state.open}
 				toggle={this.toggleModal}
+				style={{'boxShadow': 'none'}}
 			>
 				<ModalHeader toggle={this.toggleModal}>
 					{this.state.brandTitle}
@@ -170,7 +174,7 @@ class HomeComponent extends Component {
 										className="float-right"
 										style={{ fontWeight: "400", fontSize: "14px" }}
 									>
-										<a href="#" data-toggle="tooltip" title="View location">
+										<a href="/#" data-toggle="tooltip" title="View location">
 											{brand.area}
 										</a>
 									</div>

@@ -18,3 +18,12 @@ export const CREATE_COUPON_CODE = gql`
 	}
 	${Coupon}
 `;
+
+export const AUTHENTICATED_USER = gql`
+	mutation getUserDetails($email: String!, $input: UserInput) {
+		getUser(email: $email, input: $input) {
+			...User
+		}
+	}
+	${User}
+`

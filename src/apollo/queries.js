@@ -3,6 +3,16 @@ import {
 	User
 } from './fragments';
 
+export const IS_AUTHENTICATED = gql`
+	query IsUserAuthenticated {
+		isAuthenticated @client
+		authUser @client {
+			...User
+		}
+	}
+	${User}
+`;
+
 export const GET_ALL_USERS = gql`
 	query {
 		getAllUsers {
