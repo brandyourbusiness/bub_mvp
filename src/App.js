@@ -1,4 +1,4 @@
-import React from "react";
+import React, { Component } from "react";
 import { BrowserRouter as Router, Route } from "react-router-dom";
 
 import routes from "./routes";
@@ -9,6 +9,8 @@ import "./shards-dashboard/styles/shards-dashboards.1.1.0.min.css";
 
 import { ApolloProvider, withApollo } from 'react-apollo';
 import { client } from './apollo/client';
+
+import { initFirebaseUser } from 'firebase/config';
 
 const AppRoutes = () => (
   <Router basename={process.env.REACT_APP_BASENAME || ""}>
@@ -41,10 +43,14 @@ const AppRoutes = () => (
 
 const AppRoute = withApollo(AppRoutes);
 
-class App extends React.Component {
+class App extends Component {
+	constructor(props) {
+		super(props);
+		initFirebaseUser(client);
+	}
+
 	render = () => (
 		<ApolloProvider client={client}>
-			{console.log("CLINET", client)}
 			<AppRoute />
 		</ApolloProvider>
 	);

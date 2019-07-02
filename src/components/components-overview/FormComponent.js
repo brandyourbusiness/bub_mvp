@@ -11,7 +11,6 @@ import {
   FormSelect,
   Button
 } from "shards-react";
-import { GET_ALL_USERS } from "../../apollo/queries";
 
 const elements = [
   [
@@ -47,16 +46,6 @@ class FormComponent extends React.Component {
 	constructor(props){
 		super(props);
 		console.log("props", props)
-	}
-
-	componentDidMount() {
-		console.log("props did mount", this.props)
-
-		this.props.client.query({
-			query: GET_ALL_USERS
-		}).then(({data}) => {
-			console.log(")))", data)
-		})
 	}
 
 	render = () => (

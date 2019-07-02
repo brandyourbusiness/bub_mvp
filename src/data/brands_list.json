@@ -1,0 +1,62 @@
+[
+	{
+		"id": "1",
+		"backgroundImage": "../images/content-management/7.jpeg",
+		"title": "GSR Groups",
+		"category": "Business & Auxiliary",
+		"sub_category": "Real Estate",
+		"categoryTheme": "royal-blue",
+		"area": "Koramangala",
+		"discount": "10.00"
+	},
+	{
+		"id": "2",
+		"backgroundImage": "../images/content-management/7.jpeg",
+		"title": "Sri Vinayaka PG",
+		"category": "Rammurthy Nagar",
+		"sub_category": "Real Estate",
+		"categoryTheme": "royal-blue",
+		"area": "Koramangala",
+		"discount": "10.00"
+	},
+	{
+		"id": "3",
+		"backgroundImage": "../images/content-management/7.jpeg",
+		"title": "Konakalla Steel Corporation",
+		"category": "Business & Auxiliary",
+		"sub_category": "Iron & Steel",
+		"categoryTheme": "royal-blue",
+		"area": "Koramangala",
+		"discount": "10.00"
+	},
+	{
+		"id": "4",
+		"backgroundImage": "../images/content-management/7.jpeg",
+		"title": "GSR Groups",
+		"category": "Business & Auxiliary",
+		"sub_category": "Real Estate",
+		"categoryTheme": "royal-blue",
+		"area": "Koramangala",
+		"discount": "10.00"
+	},
+	{
+		"id": "5",
+		"backgroundImage": "../images/content-management/7.jpeg",
+		"title": "Sri Vinayaka PG",
+		"category": "Rammurthy Nagar",
+		"sub_category": "Real Estate",
+		"categoryTheme": "royal-blue",
+		"area": "Koramangala",
+		"discount": "10.00"
+	},
+	{
+		"id": "6",
+		"backgroundImage": "../images/content-management/7.jpeg",
+		"title": "Konakalla Steel Corporation",
+		"category": "Business & Auxiliary",
+		"sub_category": "Iron & Steel",
+		"categoryTheme": "royal-blue",
+		"area": "Koramangala",
+		"discount": "10.00"
+	}
+]

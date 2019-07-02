@@ -9,33 +9,11 @@ import UsersByDevice from "./../components/blog/UsersByDevice";
 import NewDraft from "./../components/blog/NewDraft";
 import Discussions from "./../components/blog/Discussions";
 import TopReferrals from "./../components/common/TopReferrals";
-import { GET_ALL_USERS } from "../apollo/queries";
-import { UPDATE_USER } from "../apollo/mutations";
 
 class BlogOverview extends React.Component {
-	handleClick = () => {
-		// this.props.client.query({
-		// 	query: GET_ALL_USERS
-		// }).then(res => {
-		// 	console.log("RES", res)
-		// })
-		// this.props.client.mutate({
-		// 	mutation: UPDATE_USER,
-		// 	variables: {
-		// 		id: "5d0faf65d0242d0f84306014",
-		// 		input: {
-		// 			email: "hema@gmail.com"
-		// 		}
-		// 	}
-		// }).then(res => {
-		// 	console.log("LDSKJFLJDKF", res)
-		// })
-	}
-
 	render = () => (
 	  <Container fluid className="main-content-container px-4">
 	    {/* Page Header */}
-	    {/* <div onClick={this.handleClick}> COMING HERE </div> */}
 	    <Row noGutters className="page-header py-4">
 	      <PageTitle title="Blog Overview" subtitle="Dashboard" className="text-sm-left mb-3" />
 	    </Row>
