@@ -7,6 +7,12 @@ export default function() {
   		htmlAfter: ""
   	},
     {
+      title: "Coupons",
+      htmlBefore: '<i class="material-icons">person</i>',
+      to: "/coupons",
+      authRequired: true
+    },
+    {
       title: "Blog Dashboard",
       to: "/blog-overview",
       htmlBefore: '<i class="material-icons">edit</i>',
@@ -46,6 +52,7 @@ export default function() {
       title: "Register",
       htmlBefore: '<i class="material-icons">error</i>',
       to: "/register",
+      authRequired: true
     }
   ];
 }
