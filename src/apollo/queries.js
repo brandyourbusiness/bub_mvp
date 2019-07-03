@@ -31,3 +31,11 @@ export const RUN_JOBS = gql`
 	  }
 	}
 `;
+
+export const GET_ALL_FORMS = gql`
+	query {
+		getAllFormsList {
+			list
+		}
+	}
+`;
