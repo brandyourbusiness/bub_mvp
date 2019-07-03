@@ -1,47 +1,30 @@
 import React, { Component } from "react";
-import { BrowserRouter as Router, Route } from "react-router-dom";
-
-import routes from "./routes";
-import withTracker from "./withTracker";
+import { BrowserRouter as Router } from "react-router-dom";
+import { ApolloProvider, withApollo, Query } from "react-apollo";
 
 import "bootstrap/dist/css/bootstrap.min.css";
 import "./shards-dashboard/styles/shards-dashboards.1.1.0.min.css";
 
-import { ApolloProvider, withApollo } from 'react-apollo';
-import { client } from './apollo/client';
+import { initFirebaseUser } from "firebase/config";
+import { client } from "apollo/client";
+import { Routes } from "routes/Routes";
+import { DefaultLayout } from "layouts";
+import { IS_AUTH_INITIALIZED } from "apollo/queries";
+import { Loading } from 'components';
 
-import { initFirebaseUser } from 'firebase/config';
+class AuthWrapperComponent extends Component {
+	render = () => (
+		<Query query={IS_AUTH_INITIALIZED}>
+			{
+				({data: { isAuthInitialized } }) => {
+					return isAuthInitialized ? <Loading /> : this.props.children;
+				}
+			}
+		</Query>
+	)
+}
 
-const AppRoutes = () => (
-  <Router basename={process.env.REACT_APP_BASENAME || ""}>
-	  <div>
-	    {
-	    	routes.map((route, index) => {
-	      return (
-	        <Route
-	          key={index}
-	          path={route.path}
-	          exact={route.exact}
-	          component={
-	          	withApollo(
-	          		withTracker(props => {
-			          	console.log("props", props);
-			            return (
-			              <route.layout {...props}>
-			                <route.component {...props}/>
-			              </route.layout>
-			            );
-		        	  })
-		        	)
-		        }
-	        />
-	      );
-	    })}
-	  </div>
-	</Router>
-);
-
-const AppRoute = withApollo(AppRoutes);
+const AuthWrapper = withApollo(AuthWrapperComponent);
 
 class App extends Component {
 	constructor(props) {
@@ -51,7 +34,13 @@ class App extends Component {
 
 	render = () => (
 		<ApolloProvider client={client}>
-			<AppRoute />
+			<AuthWrapper>
+				<Router>
+					<DefaultLayout>
+						<Routes />
+					</DefaultLayout>
+				</Router>
+			</AuthWrapper>
 		</ApolloProvider>
 	);
 }

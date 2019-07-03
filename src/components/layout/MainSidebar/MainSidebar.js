@@ -44,7 +44,6 @@ class MainSidebar extends React.Component {
       "col-12",
       this.state.menuVisible && "open"
     );
-
     return (
       <Col
         tag="aside"
@@ -54,7 +53,7 @@ class MainSidebar extends React.Component {
       >
         <SidebarMainNavbar hideLogoText={this.props.hideLogoText} />
         <SidebarSearch />
-        <SidebarNavItems />
+        <SidebarNavItems isAuthenticated={this.props.isAuthenticated}/>
       </Col>
     );
   }
