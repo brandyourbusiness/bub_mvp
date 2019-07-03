@@ -32,6 +32,8 @@ export const Coupon = gql`
 		consumer
 		expiry_date
 		brand_id
+		created_at
+		updated_at
 		__typename
 	}
 `;

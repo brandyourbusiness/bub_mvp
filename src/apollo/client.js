@@ -13,7 +13,8 @@ const cache = new InMemoryCache({
 const stateLink = withClientState({
 	defaults: {
 		isUserExists: false,
-		isAuthenticated: false
+		isAuthenticated: false,
+		isAuthInitialized: false
 	},
 	resolvers: {
 		Mutation: () => ({}),
