@@ -1,7 +1,8 @@
 import { gql } from 'apollo-boost';
 import {
 	User,
-	Coupon
+	Coupon,
+	Brand
 } from './fragments';
 
 export const IS_AUTHENTICATED = gql`
@@ -63,4 +64,13 @@ export const GET_COUPONS_BY_QUERY = gql`
 		} 
 	}
 	${Coupon}
+`;
+
+export const GET_BRANDS_BY_QUERY = gql`
+	query GetBrandsByQuery($condition: BrandQueryInput) {
+		getBrandByQuery (condition: $condition) {
+			...Brand
+		}
+	}
+	${Brand}
 `;

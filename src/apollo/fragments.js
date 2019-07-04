@@ -37,3 +37,27 @@ export const Coupon = gql`
 		__typename
 	}
 `;
+
+export const Brand = gql`
+	fragment Brand on Brand {
+		id
+		name
+		email
+		description
+		discount_rate
+		category
+		sub_category
+		address
+		city
+		state
+		country
+		zip_code
+		contact
+		image_url
+		verified
+		user_id
+		created_at
+		updated_at
+		__typename
+	}
+`;

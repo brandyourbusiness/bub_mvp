@@ -1,8 +1,8 @@
 import { gql } from "apollo-boost";
-import { User, Coupon } from "./fragments";
+import { User, Coupon, Brand } from "./fragments";
 
-export const UPDATE_USER = gql`
-	mutation updateProfile($id: ID!, $input: UserInput) {
+export const UPDATE_USER_BY_ID = gql`
+	mutation UpdateUserById($id: ID!, $input: UserInput) {
 		updateUserById(id: $id, input: $input) {
 			...User
 		}
@@ -11,7 +11,7 @@ export const UPDATE_USER = gql`
 `;
 
 export const CREATE_COUPON_CODE = gql`
-	mutation CREATE_COUPON($input: CouponInput) {
+	mutation CreateCoupon($input: CouponInput) {
 		createCoupon(input: $input) {
 			...Coupon
 		}
@@ -20,10 +20,27 @@ export const CREATE_COUPON_CODE = gql`
 `;
 
 export const AUTHENTICATED_USER = gql`
-	mutation getUserDetails($email: String!, $input: UserInput) {
+	mutation GetUserDetails($email: String!, $input: UserInput) {
 		getUser(email: $email, input: $input) {
 			...User
 		}
 	}
 	${User}
 `
+export const CREATE_BRAND = gql`
+	mutation CreateBrand($input: BrandInput) {
+		createBrand(input: $input) {
+			...Brand
+		}
+	}
+	${Brand}
+`;
+
+export const UPDATE_BRAND_BY_ID = gql`
+	mutation UpdateBrandById($id: ID!, $input: BrandInput) {
+		updateBrandById(id: $id, input: $input) {
+			...Brand
+		}
+	}
+	${Brand}
+`;
