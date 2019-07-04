@@ -1,129 +1,181 @@
 import React from "react";
 import {
-  ListGroup,
-  ListGroupItem,
-  Row,
-  Col,
-  Form,
-  FormInput,
-  FormGroup,
-  FormCheckbox,
-  FormSelect,
-  Button
+	ListGroup,
+	ListGroupItem,
+	Row,
+	Col,
+	Form,
+	FormInput,
+	FormGroup,
+	FormCheckbox,
+	FormSelect,
+	Button,
+	FormTextarea
 } from "shards-react";
+import lodash from "lodash";
 
-const elements = [
-  [
-    {
-      label: "Email",
-      tag: "input",
-      type: "email",
-      division: 6,
-      options:{
-        placeholder: "Email"
-      }
-    },
-    {
-      label: "Password",
-      tag: "input",
-      type: "password",
-      division: 6,
-      options:{
-        placeholder: "Password"
-      }
-    }
-  ],
-  {
-    label: "Address",
-    tag: "input",
-    options: {
-      placeholder: "1234 Main St"
-    }
-  }
-]
+const InitialState = {};
 
 class FormComponent extends React.Component {
-	constructor(props){
+	constructor(props) {
 		super(props);
-		console.log("props", props)
+		this.state = InitialState;
+		console.log("this.props", this.props);
 	}
 
-	render = () => (
-	  <ListGroup flush>
-	    <ListGroupItem className="p-3">
-	      <Row>
-	        <Col>
-	          <Form>
-	            <Row form className="form-group">
-	              {elements.map((element, i) => (
-	                Array.isArray(element) ?
-	                  (<Row form className="form-group">
-	                      {element.map((item, index) => (
-	                        <Col md="6" key={i}>
-	                          <label htmlFor={`fe${item.label}`}>{item.label}</label>
-	                          <FormInput
-	                            id={`fe${item.label}`}
-	                            type={item.type}
-	                            placeholder={item.placeholder || item.label}
-	                          />
-	                        </Col>
-	                      ))}
-	                    </Row>
-	                  ) :
-	                (<Col md="6" key={i}>
-	                  <label htmlFor={`fe${element.label}`}>{element.label}</label>
-	                  <FormInput
-	                    id={`fe${element.label}`}
-	                    type={element.type}
-	                    placeholder={element.placeholder || element.label}
-	                  />
-	                </Col>)
-	              ))}
-	            </Row>
+	onSubmit = () => {
+		console.log("KJLJKLKJK", this.state);
+		this.props.onSubmit(this.state);
+		this.setState(InitialState);
+	};
 
-	            <FormGroup>
-	              <label htmlFor="feInputAddress">Address</label>
-	              <FormInput id="feInputAddress" placeholder="1234 Main St" />
-	            </FormGroup>
+	toggleState = (key, value) => {
+		console.log("ITEM", key, value);
+		this.setState(prevState => ({
+			[lodash.snakeCase(key)]: !prevState[lodash.snakeCase(value)]
+		}));
+	};
 
-	            <FormGroup>
-	              <label htmlFor="feInputAddress2">Address 2</label>
-	              <FormInput
-	                id="feInputAddress2"
-	                placeholder="Apartment, Studio or Floor"
-	              />
-	            </FormGroup>
+	handleChange = (key, value) => {
+		console.log("KEY", key, value);
+		this.setState({
+			[key]: value
+		});
+	};
 
-	            <Row form>
-	              <Col md="6" className="form-group">
-	                <label htmlFor="feInputCity">City</label>
-	                <FormInput id="feInputCity" />
-	              </Col>
-	              <Col md="4" className="form-group">
-	                <label htmlFor="feInputState">State</label>
-	                <FormSelect id="feInputState">
-	                  <option>Choose...</option>
-	                  <option>...</option>
-	                </FormSelect>
-	              </Col>
-	              <Col md="2" className="form-group">
-	                <label htmlFor="feInputZip">Zip</label>
-	                <FormInput id="feInputZip" />
-	              </Col>
-	            </Row>
-	            <FormGroup>
-	              <FormCheckbox>
-	                {/* eslint-disable-next-line */}I agree with your{" "}
-	                <a href="#">Privacy Policy</a>.
-	              </FormCheckbox>
-	            </FormGroup>
-	            <Button type="submit">Create New Account</Button>
-	          </Form>
-	        </Col>
-	      </Row>
-	    </ListGroupItem>
-	  </ListGroup>
-	)
-};
+	generateElement = element => {
+		const elementLabel = lodash.snakeCase(element.label);
+		switch (element.type) {
+			case "text-area":
+				return (
+					<FormTextarea
+						id={`fe${element.label}`}
+						rows={`${element.rows}` || "3"}
+						value={
+							this.props.details[element.dbName || elementLabel] ||
+							this.state[elementLabel] ||
+							this.state[element.dbName] ||
+							element.value ||
+							""
+						}
+						onChange={e =>
+							this.handleChange(element.dbName || elementLabel, e.target.value)
+						}
+					/>
+				);
+			case "dropdown":
+				return (
+					<FormSelect
+						id={`fe${element.label}`}
+						onChange={e =>
+							this.handleChange(element.dbName || elementLabel, e.target.value)
+						}
+					>
+						<option
+							key={element.dbName || elementLabel || ""}
+							value={this.props.details[element.dbName || elementLabel] || ""}
+						>
+							{this.props.details[element.dbName || elementLabel] ||
+								"Choose one"}
+						</option>
+						{element.values &&
+							element.values.map((val, idx) => (
+								<option key={val.key} value={val.value}>
+									{val.value}
+								</option>
+							))}
+					</FormSelect>
+				);
+			case "checkbox":
+				return <FormCheckbox toggle={true} small={true}></FormCheckbox>;
+			default:
+				return (
+					<FormInput
+						id={`fe${element.label}`}
+						type={element.type || "text"}
+						placeholder={element.placeholder || element.label}
+						value={
+							this.props.details[element.dbName || elementLabel] ||
+							this.state[elementLabel] ||
+							this.state[element.dbName] ||
+							element.value ||
+							""
+						}
+						onChange={e =>
+							this.handleChange(element.dbName || elementLabel, e.target.value)
+						}
+						disabled={element.disabled}
+					/>
+				);
+		}
+	};
+
+	render() {
+		return (
+			<ListGroup flush>
+				<ListGroupItem className="p-3">
+					<Row>
+						<Col>
+							<Form>
+								<Row form className="form-group">
+									{this.props.list.map((item, index) => {
+										if (item.hidden) {
+											return null;
+										}
+										return !item.group ? (
+											<Col
+												md={item.division || 12}
+												className="px-2"
+												key={index}
+											>
+												<label
+													htmlFor={`fe${item.label}`}
+													style={{ fontSize: "14px", marginTop: "10px" }}
+												>
+													<b>
+														{item.label}
+														<span hidden={!item.required}> *</span>
+													</b>
+												</label>
+												<span>{this.generateElement(item)}</span>
+											</Col>
+										) : (
+											<>
+												<Col md={item.division || 12} key={index}>
+													<label>{item.label}</label>
+													<span onChange={e => this.toggleState(item.label)}>
+														{this.generateElement(item)}
+													</span>
+												</Col>
+												{this.state[item.label] &&
+													item.values.map((value, ind) => (
+														<Col md={value.division || 12} key={ind}>
+															<label htmlFor={`fe${value.label}`}>
+																{value.label}
+															</label>
+															{this.generateElement(value)}
+														</Col>
+													))}
+											</>
+										);
+									})}
+								</Row>
+								<FormGroup>
+									<FormCheckbox>
+										{/* eslint-disable-next-line */}I agree with your{" "}
+										<a href="#">Privacy Policy</a>.
+									</FormCheckbox>
+								</FormGroup>
+								<Button type="button" onClick={this.onSubmit}>
+									Update
+								</Button>
+							</Form>
+						</Col>
+					</Row>
+				</ListGroupItem>
+			</ListGroup>
+		);
+	}
+}
 
 export default FormComponent;

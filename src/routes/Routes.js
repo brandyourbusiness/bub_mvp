@@ -13,6 +13,7 @@ import BlogPosts from "views/BlogPosts";
 import FormContainer from "views/FormContainer";
 import HomeComponent from "views/HomeComponent";
 import CouponsComponent from "views/CouponsComponent";
+import EditBrandsComponent from "views/EditBrands";
 
 const LandingComponent = () => <Redirect to="/home" />;
 
@@ -24,11 +25,12 @@ export const Routes = () => (
 		<Route path="/user-profile-lite" component={UserProfileLite} />
 		<Route path="/add-new-post" component={AddNewPost} />
 		<Route path="/errors" component={Errors} />
-		<Route path="/register" component={FormContainer} />
+		<AuthRoute path="/profile" component={FormContainer} />
 		<Route path="/components-overview" component={ComponentsOverview} />
 		<Route path="/tables" component={Tables} />
 		<Route path="/blog-posts" component={BlogPosts} />
 		<AuthRoute path="/coupons" component={CouponsComponent} />
+		<AuthRoute path="/edit-brands" component={EditBrandsComponent} />
 	</Switch>
 );
 

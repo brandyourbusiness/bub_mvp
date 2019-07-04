@@ -7,6 +7,18 @@ export default function() {
   		htmlAfter: ""
   	},
     {
+      title: "Profile",
+      htmlBefore: '<i class="material-icons">edit</i>',
+      to: "/profile",
+      authRequired: true
+    },
+    {
+      title: "Add / Edit Brands",
+      htmlBefore: '<i class="material-icons">business</i>',
+      to: "/edit-brands",
+      authRequired: true
+    },
+    {
       title: "Coupons",
       htmlBefore: '<i class="material-icons">person</i>',
       to: "/coupons",
@@ -47,12 +59,6 @@ export default function() {
       title: "Errors",
       htmlBefore: '<i class="material-icons">error</i>',
       to: "/errors",
-    },
-    {
-      title: "Register",
-      htmlBefore: '<i class="material-icons">error</i>',
-      to: "/register",
-      authRequired: true
     }
   ];
 }
